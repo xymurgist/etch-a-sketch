@@ -1,4 +1,4 @@
-// Initialize variables
+// Initialize constants
 
 const container = document.querySelector('#container');
 const submitButton = document.querySelector('#submitButton');
@@ -11,20 +11,33 @@ const submitButton = document.querySelector('#submitButton');
 
 // Toggle highlight state of individual <div>s
 
-function createFlexBoxes() {
+function removeGrid() {
+
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
+function createGrid() {
+
+    // Clear the current grid before creating a new grid
+    removeGrid();
 
     let gridSize = document.querySelector('#gridSize').value;
     let squaredGrid = gridSize * gridSize;
 
-    console.log(gridSize);
-    console.log(squaredGrid);
-    for (let i = 0; i < squaredGrid; i++) {
-        const flexBox = document.createElement('div');
-        flexBox.classList.add("highlighted");
-        container.appendChild(flexBox);
+    if (isNaN(gridSize) || gridSize < 1) {
+        squaredGrid = 100;
     }
+
+    for (let i = 0; i < squaredGrid; i++) {
+        const gridBox = document.createElement('div');
+        gridBox.classList.add("gridBox", "highlighted");
+        container.appendChild(gridBox);
+    }
+    
 }
 
-submitButton.addEventListener("click", createFlexBoxes);
+submitButton.addEventListener("click", createGrid);
 
 // createFlexBoxes();
