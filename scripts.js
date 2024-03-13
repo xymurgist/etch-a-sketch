@@ -1,4 +1,4 @@
-// Initialize constants
+// INITIALIZE CONSTANTS
 
 const container = document.querySelector('#container');
 const submitButton = document.querySelector('#submitButton');
@@ -11,15 +11,11 @@ const enterCols = document.querySelector('#userCols');
 /// lookup mouseDown and mouseEnter
 /// make reset button
 
-function removeGrid() {
-
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-}
-
 
 function checkUserInput() {
+    // check the user's entered values for validity
+    // if not valid, make valid
+
     let userRows = document.querySelector('#userRows').value;
     let userCols = document.querySelector('#userCols').value;
 
@@ -63,6 +59,26 @@ function createGrid(userInput) {
 
         
     }
+    resizeBoxHeight();
+    
+}
+
+
+function gridManager() {
+    removeGrid();
+    createGrid(checkUserInput());
+}
+
+
+function removeGrid() {
+
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
+
+function resizeBoxHeight() {
 
     // make box height = box width
     let boxWidth = document.querySelector('.gridBox').clientWidth;
@@ -71,37 +87,38 @@ function createGrid(userInput) {
     for (let i = 0; i < boxes.length; i++) {
         boxes[i].setAttribute("style", `height: ${boxWidth}px`);
     }
-    
 }
 
 
-function gridManager() {
-    removeGrid();
-    let userInput = checkUserInput();
-    createGrid(userInput);
-}
+
+///// EVENT LISTENERS /////
+
+// "CONTAINER" RESIZE
+container.addEventListener("resize", resizeBoxHeight);
 
 
-submitButton.addEventListener("click", gridManager);
-
+// "ENTER" KEYPRESS
 // Would like to learn how to make the following more consice and reusable
-// If the user presses the "Enter" key on the keyboard
-enterRows.addEventListener("keypress", function (event){
-    if(event.key === "Enter") {
-        // Cancel the default action, if needed
+// If the user presses the "Enter" key while within the input textbox, manage the grid
+enterRows.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
         event.preventDefault();
-        // Trigger the button element with a click
         gridManager();
     }
 });
 
 enterCols.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-        // Cancel the default action, if needed
         event.preventDefault();
-        // Trigger the button element with a click
         gridManager();
     }
 });
 
-// createFlexBoxes();
+
+// "SUBMIT" CLICK
+submitButton.addEventListener("click", gridManager);
+
+
+// WINDOW RESIZE
+window.addEventListener("resize", resizeBoxHeight);
+
