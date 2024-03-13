@@ -1,4 +1,4 @@
-// INITIALIZE CONSTANTS
+// INITIALIZE VARIABLES
 
 const container = document.querySelector('#container');
 const submitButton = document.querySelector('#submitButton');
@@ -6,10 +6,61 @@ const enterRows = document.querySelector('#userRows');
 const enterCols = document.querySelector('#userCols');
 
 
+
+
+///// EVENT LISTENERS /////
+
+// "CONTAINER" RESIZE
+container.addEventListener("resize", resizeBoxHeight);
+
+
+// "ENTER" KEYPRESS
+// Would like to learn how to make the following more consice and reusable
+// If the user presses the "Enter" key while within the input textbox, manage the grid
+enterRows.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        gridManager();
+    }
+});
+
+enterCols.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        gridManager();
+    }
+});
+
+
+// "SUBMIT" CLICK
+submitButton.addEventListener("click", gridManager);
+
+
+// WINDOW RESIZE
+window.addEventListener("resize", resizeBoxHeight);
+
+
+
+
 // TODO //
 // Toggle highlight state of individual <div>s
 /// lookup mouseDown and mouseEnter
 /// make reset button
+
+
+function addClassHighlight() {
+    // Add MOUSEOVER to each gridBox
+
+    let arrayOfBoxes = document.querySelectorAll('.gridBox');
+
+    arrayOfBoxes.forEach(function (i) {
+        i.addEventListener('mousedown', function () {
+            console.log("I'm clicked")
+            i.classList.add('highlight');
+            // if ('mousedown') { i.classList.add('highlight'); }
+        });
+    });
+}
 
 
 function checkUserInput() {
@@ -60,6 +111,7 @@ function createGrid(userInput) {
         
     }
     resizeBoxHeight();
+    addClassHighlight();
     
 }
 
@@ -88,37 +140,3 @@ function resizeBoxHeight() {
         boxes[i].setAttribute("style", `height: ${boxWidth}px`);
     }
 }
-
-
-
-///// EVENT LISTENERS /////
-
-// "CONTAINER" RESIZE
-container.addEventListener("resize", resizeBoxHeight);
-
-
-// "ENTER" KEYPRESS
-// Would like to learn how to make the following more consice and reusable
-// If the user presses the "Enter" key while within the input textbox, manage the grid
-enterRows.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        gridManager();
-    }
-});
-
-enterCols.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
-        gridManager();
-    }
-});
-
-
-// "SUBMIT" CLICK
-submitButton.addEventListener("click", gridManager);
-
-
-// WINDOW RESIZE
-window.addEventListener("resize", resizeBoxHeight);
-

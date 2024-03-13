@@ -6,7 +6,7 @@
 
 /* this selector selects all divs inside of .flex-container */
 .flex-container div {
-    background: peachpuff;
+    /* background: peachpuff; */
     border: 1px solid brown;
     height: 59px;
     flex: 1 1 1%;
@@ -14,3 +14,5 @@
     padding: 0;
 
 }
+
+.highlight { background: blue; }
