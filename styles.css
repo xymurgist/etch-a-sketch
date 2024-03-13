@@ -2,29 +2,15 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    /* width: 2000px; */
 }
 
 /* this selector selects all divs inside of .flex-container */
 .flex-container div {
     background: peachpuff;
-    border: 2px solid brown;
-    height: 100px;
-    flex: 1;
-    margin: 5px;
+    border: 1px solid brown;
+    height: 59px;
+    flex: 1 1 1%;
+    margin: 0px;
     padding: 0;
 
 }
-
-.gridRow {
-    width: 100%;
-}
-
-/*
-
-stylize each div of the flexbox
-- remove all padding
-- add border and margins
-- add highlight state
-
-*/
