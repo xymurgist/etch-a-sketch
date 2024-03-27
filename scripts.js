@@ -1,4 +1,4 @@
-///// INITIALIZE VARIABLES /////
+////////// INITIALIZE VARIABLES //////////
 
 const container = document.querySelector('#container');
 const submitButton = document.querySelector('#submitButton');
@@ -6,16 +6,24 @@ const enterRows = document.querySelector('#userRows');
 const enterCols = document.querySelector('#userCols');
 
 
+////////// EVENT LISTENERS //////////
 
+// "CONTAINER" MOUSEDOWN
+container.addEventListener('mousedown', function () {
+    moveMouse("down");
+});
 
-///// EVENT LISTENERS /////
+// "CONTAINER" MOUSEUP
+container.addEventListener('mouseup', function () {
+    moveMouse("up");
+});
 
 // "CONTAINER" RESIZE
 container.addEventListener("resize", resizeBoxHeight);
 
 
 // "ENTER" KEYPRESS
-// Would like to learn how to make the following more consice and reusable
+// Would like to learn how to make the following more concise and reusable
 // If the user presses the "Enter" key while within the input textbox, manage the grid
 enterRows.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -41,8 +49,7 @@ window.addEventListener("resize", resizeBoxHeight);
 
 
 
-
-///// FUNCTIONS /////
+////////// FUNCTIONS //////////
 
 function checkUserInput() {
     // check the user's entered values for validity
@@ -72,6 +79,7 @@ function checkUserInput() {
 
 
 function createGrid(userInput) {
+    // creates a new grid according to user inputs
 
     let gridRows = userInput[0]
     let gridCols = userInput[1]
@@ -83,56 +91,31 @@ function createGrid(userInput) {
         gridRow.classList.add('flex-container');
         container.appendChild(gridRow);
 
+        // create boxes to represent columns
         for (let column = 0; column < gridCols; column++) {
             const gridCol = document.createElement('div');
             gridCol.classList.add('gridBox');
             gridRow.appendChild(gridCol);
         }
-
-        
     }
-    // gridBoxesMouseMove();
     resizeBoxHeight();
 }
 
 
 function gridManager() {
+    // makes calls to remove the current grid and create a new grid
     removeGrid();
     createGrid(checkUserInput());
 }
 
 
-function removeGrid() {
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-}
-
-
-function resizeBoxHeight() {
-    // make box height = box width
-    let boxWidth = document.querySelector('.gridBox').clientWidth;
-    let boxes = document.querySelectorAll('.gridBox');
-
-    for (let i = 0; i < boxes.length; i++) {
-        boxes[i].setAttribute("style", `height: ${boxWidth}px`);
-    }
-}
-
-
-
-container.addEventListener('mousedown', function () {
-    moveMouse("down");
-});
-container.addEventListener('mouseup', function () {
-    moveMouse("up");
-});
-
 function moveMouse(upDown) {
+    // if the mouse button is up and the mouse is over a grid box, leave its current color
+    // if the mouse button is down and the mouse is over a grid box, change its color
 
     let arrayOfBoxes = document.querySelectorAll('.gridBox');
     arrayOfBoxes.forEach(function (box) {
- 
+
         if (upDown == "up") {
             if (box.style.backgroundColor == '') {
                 box.addEventListener('mouseover', function () {
@@ -148,7 +131,26 @@ function moveMouse(upDown) {
             box.addEventListener('mousedown', function () {
                 box.style.backgroundColor = "blue";
             });
-            
+
         }
     });
+}
+
+
+function removeGrid() {
+    // removes current grid
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
+
+function resizeBoxHeight() {
+    // resizes each box so the height matches the width
+    let boxWidth = document.querySelector('.gridBox').clientWidth;
+    let boxes = document.querySelectorAll('.gridBox');
+
+    for (let i = 0; i < boxes.length; i++) {
+        boxes[i].setAttribute("style", `height: ${boxWidth}px`);
+    }
 }
