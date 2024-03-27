@@ -1,4 +1,4 @@
-// INITIALIZE VARIABLES
+///// INITIALIZE VARIABLES /////
 
 const container = document.querySelector('#container');
 const submitButton = document.querySelector('#submitButton');
@@ -42,26 +42,7 @@ window.addEventListener("resize", resizeBoxHeight);
 
 
 
-// TODO //
-// Toggle highlight state of individual <div>s
-/// lookup mouseDown and mouseEnter
-/// make reset button
-
-
-function addClassHighlight() {
-    // Add MOUSEOVER to each gridBox
-
-    let arrayOfBoxes = document.querySelectorAll('.gridBox');
-
-    arrayOfBoxes.forEach(function (i) {
-        i.addEventListener('mousedown', function () {
-            console.log("I'm clicked")
-            i.classList.add('highlight');
-            // if ('mousedown') { i.classList.add('highlight'); }
-        });
-    });
-}
-
+///// FUNCTIONS /////
 
 function checkUserInput() {
     // check the user's entered values for validity
@@ -110,9 +91,8 @@ function createGrid(userInput) {
 
         
     }
+    // gridBoxesMouseMove();
     resizeBoxHeight();
-    addClassHighlight();
-    
 }
 
 
@@ -123,7 +103,6 @@ function gridManager() {
 
 
 function removeGrid() {
-
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
@@ -131,7 +110,6 @@ function removeGrid() {
 
 
 function resizeBoxHeight() {
-
     // make box height = box width
     let boxWidth = document.querySelector('.gridBox').clientWidth;
     let boxes = document.querySelectorAll('.gridBox');
@@ -139,4 +117,38 @@ function resizeBoxHeight() {
     for (let i = 0; i < boxes.length; i++) {
         boxes[i].setAttribute("style", `height: ${boxWidth}px`);
     }
+}
+
+
+
+container.addEventListener('mousedown', function () {
+    moveMouse("down");
+});
+container.addEventListener('mouseup', function () {
+    moveMouse("up");
+});
+
+function moveMouse(upDown) {
+
+    let arrayOfBoxes = document.querySelectorAll('.gridBox');
+    arrayOfBoxes.forEach(function (box) {
+ 
+        if (upDown == "up") {
+            if (box.style.backgroundColor == '') {
+                box.addEventListener('mouseover', function () {
+                    box.style.backgroundColor = '';
+                });
+            } else {
+                box.style.backgroundColor = box.style.backgroundColor;
+            }
+        } else if (upDown == "down") {
+            box.addEventListener('mouseover', function () {
+                box.style.backgroundColor = "blue";
+            });
+            box.addEventListener('mousedown', function () {
+                box.style.backgroundColor = "blue";
+            });
+            
+        }
+    });
 }

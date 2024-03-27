@@ -1,3 +1,7 @@
+body {
+    background-color: #0f0;
+}
+
 .flex-container {
     display: flex;
     flex-wrap: wrap;
@@ -15,4 +19,28 @@
 
 }
 
+.gridBox {
+    /* background-color: white; */
+    text-decoration: none;
+}
+
 .highlight { background: blue; }
+.noHighlight {text-decoration: none;}
+
+#penTip {
+    position: absolute;
+    z-index: 9;
+    background-color: #f00;
+    border: 1px solid #000;
+    text-align: center;
+    width: 5px;
+    height: 5px;
+}
+
+/* #mydivheader {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #2196F3;
+    color: #fff;
+} */
