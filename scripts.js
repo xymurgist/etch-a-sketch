@@ -67,11 +67,11 @@ function checkUserInput() {
     }
 
     if (isNaN(userRows) || userRows < 1) {
-        userRows = 5;
+        userRows = 16;
     }
 
     if (isNaN(userCols) || userCols < 1) {
-        userCols = 10;
+        userCols = 16;
     }
 
     return [userRows, userCols];
@@ -113,6 +113,12 @@ function moveMouse(upDown) {
     // if the mouse button is up and the mouse is over a grid box, leave its current color
     // if the mouse button is down and the mouse is over a grid box, change its color
 
+    // note: would like to be able to get the colors to darken rather than continuing to change to another color
+
+    function randomColor() {
+        return Math.floor(Math.random() * 256);
+    }
+
     let arrayOfBoxes = document.querySelectorAll('.gridBox');
     arrayOfBoxes.forEach(function (box) {
 
@@ -126,12 +132,9 @@ function moveMouse(upDown) {
             }
         } else if (upDown == "down") {
             box.addEventListener('mouseover', function () {
-                box.style.backgroundColor = "blue";
+                randomRGB = `${randomColor()},${randomColor()},${randomColor()},0.5`;
+                box.style.backgroundColor = `rgba(${randomRGB})`;
             });
-            box.addEventListener('mousedown', function () {
-                box.style.backgroundColor = "blue";
-            });
-
         }
     });
 }
@@ -146,7 +149,7 @@ function removeGrid() {
 
 
 function resizeBoxHeight() {
-    // resizes each box so the height matches the width
+    // resizes each box so the height matches the width as window or browser resize
     let boxWidth = document.querySelector('.gridBox').clientWidth;
     let boxes = document.querySelectorAll('.gridBox');
 
